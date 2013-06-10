@@ -14,7 +14,7 @@ util.inherits(TelnetLogger, winston.Transport);
 
 TelnetLogger.prototype.log = function (level, msg, meta, callback) {
 	for (var i = 0; i < sockets.length; i++) {
-			sockets[i].write(msg + '\n');
+			sockets[i].write(msg + '\r\n');
 	}
 
 	callback(null, true);
@@ -31,7 +31,7 @@ function closeSocket(socket) {
 
 function newSocket(socket){
 	sockets.push(socket);
-	socket.write('Winston Telnet Server!\n');
+	socket.write('Winston Telnet Server!\r\n');
 	socket.on('end', function() {
 		closeSocket(socket);
 	})
